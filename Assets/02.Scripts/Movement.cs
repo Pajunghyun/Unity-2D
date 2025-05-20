@@ -29,8 +29,8 @@ public class Movement : MonoBehaviour
     {
 
         //Debug.Log("업데이트함수 실행");
-        //////////어몽오스                 어몽어스            앞쪽->(0,0,1)  속도조절변수
-       // this.transform.position = this.transform.position + Vector3.forward * moveSpeed;
+        ////////////어몽오스                 어몽어스            앞쪽->(0,0,1)  속도조절변수          Vector3 위치값 
+        // this.transform.position = this.transform.position + Vector3.forward * moveSpeed;
 
         //this.transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
         //
@@ -45,27 +45,37 @@ public class Movement : MonoBehaviour
 
         if ( Input.GetKey(KeyCode.W)) //   GetKeyDown 누르면 한 번  ,    GetKey 키누르고있으면    , GetKeyUp 키놓으면 1번실행 
         {
-            this.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            this.transform.position += (Vector3.forward * (moveSpeed * Time.deltaTime)); // 
+            SetDirection(0);
+            this.transform.position += (Vector3.forward * (moveSpeed * Time.deltaTime)); //   Vector3 위치값 
         }
         else if (Input.GetKey(KeyCode.S))
         {
-            this.transform.rotation = Quaternion.Euler(0f, 180f, 0f);
+            //this.transform.rotation = Quaternion.Euler(0f, 180f, 0f);// 뱡향값 바꾸기 // 위치값이 돌아감 
+            SetDirection(180f); //방향바꾸기 하지만 위치값고정 
             this.transform.position += (Vector3.back * (moveSpeed * Time.deltaTime));
         }
         else if (Input.GetKey(KeyCode.A))
         {
-            this.transform.rotation = Quaternion.Euler(0f, -90f, 0f);
+            SetDirection(-90f); //방향바꾸기 하지만 위치값고정 
             this.transform.position += (Vector3.left * (moveSpeed * Time.deltaTime));
         }
         else if (Input.GetKey(KeyCode.D))
         {
-            this.transform.rotation = Quaternion.Euler(0f, 90f, 0f);
+            SetDirection(90f); //방향바꾸기 하지만 위치값고정 
             this.transform.position += (Vector3.right * (moveSpeed * Time.deltaTime));
         }
 
 
 
+    }
+
+
+
+    void SetDirection(float yRotation)
+    {
+        Vector3 currentEuler = transform.eulerAngles;
+        currentEuler.y = yRotation;
+        transform.eulerAngles = currentEuler;
     }
 
 
